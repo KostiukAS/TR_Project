@@ -1,4 +1,5 @@
-def weight_rules_algorithm():
+def weight_rules_algorithm(data):
     # TODO: Implement a weighted rules algorithm
-    print("This is a placeholder for a weighted rules algorithm implementation.")
-    pass
+    
+    # Plaseholder, should return ["Алгоритм зважених правил", order, x, y]
+    return ["Алгоритм зважених правил", [], [], 0]
