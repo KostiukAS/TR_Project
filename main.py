@@ -1,5 +1,5 @@
 from algorithms import greedy, prob_rules, weight_rules
-import data_helper
+import data_helper, experiment_helper
 
 data = []
 results = []
@@ -57,6 +57,7 @@ def data_input():
         print("1 - З файлу")
         print("2 - Ввести вручну")
         print("3 - Згенерувати випадкові дані")
+        print("4 - Модифікувати дані")
         print("0 - Назад")
         
         choice = input("Введіть число: ")
@@ -81,6 +82,12 @@ def data_input():
             break
         elif choice == '3':
             data = data_helper.generate_random_data()
+            break
+        elif choice == '4':
+            if data == []:
+                print("Дані не завантажені. Спочатку завантажте дані.")
+            else:
+                data = data_helper.modify_data(data)
             break
         elif choice == '0':
             print("Повернення в головне меню.")
@@ -108,8 +115,34 @@ def solver():
     results_output()
 
 def experiment():
-    # TODO: Implement experiment function
-    pass
+    while True:
+        print("\nПроведення експериментів:")
+        print("Виберіть тип експерименту:")
+        print("1 - Вплив кількості клієнтів n на час роботи алгоритмів")
+        print("2 - Вплив кількості клієнтів n на точність алгоритмів")
+        print("3 - Вплив середньої тривалості зустрічей на точність алгоритмів")
+        print("4 - Вплив кількості прогонів m на точність алгоритму імовірнісних правил")
+        print("0 - Назад")
+        
+        choice = input("Введіть число: ")
+        
+        if choice == '1':
+            experiment_helper.experiment_n_on_time()
+            break
+        elif choice == '2':
+            experiment_helper.experiment_n_on_accuracy()
+            break
+        elif choice == '3':
+            experiment_helper.experiment_duration_on_accuracy()
+            break
+        elif choice == '4':
+            experiment_helper.experiment_m_on_accuracy()
+            break
+        elif choice == '0':
+            print("Повернення в головне меню.")
+            break
+        else:
+            print("\nНекоректний ввід. Спробуйте ще раз.\n")
 
 def data_output():
     global data

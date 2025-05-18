@@ -55,8 +55,79 @@ def check_data(data):
         print("n та t мають бути цілими числами.")
         return False
     
+    if n <= 0 or t < 0:
+        print("n має бути додатнім числом, а t - невід'ємним.")
+        return False
+    
     if not all(isinstance(i, int) for i in s) or not all(isinstance(i, int) for i in f):
         print("s та f мають бути списками цілих чисел.")
         return False
     
+    for i in range(n):
+        if s[i] < 0 or f[i] < 0:
+            print("Елементи списків s та f мають бути невід'ємними.")
+            return False
+        if s[i] >= f[i]:
+            print("s[i] має бути менше f[i].")
+            return False
+    
     return True
+
+def input_data_manually():
+    data = []
+    
+    while True:
+        try:
+            print("Введіть n та t (мають бути цілими числами):")
+            n = int(input("Введіть кількість елементів (n): "))
+            t = int(input("Введіть початковий момент часу (t): "))
+            if n <= 0 or t < 0:
+                print("n має бути додатнім числом, а t - невід'ємним.")
+                continue
+            break
+        except ValueError:
+            print("Некоректний ввід. Спробуйте ще раз.")
+    
+    s = []
+    f = []
+    
+    while True:
+        print("Введіть значення списку s:")
+        try:
+            s = list(map(int, input("Введіть s (через пробіл): ").split(' ')))
+            if len(s) != n:
+                print(f"Кількість елементів у списку s має дорівнювати {n}.")
+                continue
+            break
+        except ValueError:
+            print("Некоректний ввід. Спробуйте ще раз.")
+    
+    while True:
+        print("Введіть значення списку f:")
+        try:
+            f = list(map(int, input("Введіть f (через пробіл): ").split(' ')))
+            if len(f) != n:
+                print(f"Кількість елементів у списку f має дорівнювати {n}.")
+                continue
+            break
+        except ValueError:
+            print("Некоректний ввід. Спробуйте ще раз.")
+    
+    data.append(n)
+    data.append(t)
+    data.append(s)
+    data.append(f)
+    
+    if not check_data(data):
+        print("Некоректні дані.")
+        return []
+    
+    return data
+
+def generate_random_data():
+    # TODO: Implement a function to generate random data
+    pass
+
+def modify_data(data):
+    # TODO: Implement a function to modify data
+    pass
