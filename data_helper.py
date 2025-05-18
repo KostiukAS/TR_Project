@@ -1,4 +1,5 @@
 import json
+import random
 
 def load_data_from_file(file_name):
     file_path = 'data_files/' + file_name
@@ -264,9 +265,47 @@ def modify_data(data):
     
     return data
 
-def generate_random_data():
-    # TODO: Implement a function to generate random data
-    pass
+def generate_random_data(n=None, t=None, avg_length=None, max_diff=None):
+    data = []
+    
+    if n is None:
+        n = random.randint(3, 200)
+    if t is None:
+        t = random.randint(0, 23)
+    if avg_length is None:
+        avg_length = random.randint(3, 20)
+    if max_diff is None:
+        max_diff = random.randint(1, 5)
+    
+    data.append(n)
+    data.append(t)
+    
+    s = []
+    f = []
+    max_s = n * avg_length
+    
+    for i in range(n):
+        s_value = random.randint(0, max_s)
+        f_value = s_value
+        sign_flag = random.randint(0, 1)
+        diff = random.randint(0, max_diff)
+        
+        if sign_flag == 0:
+            f_value += max(avg_length - diff, 1)
+        else:
+            f_value += avg_length + diff
+        
+        s.append(s_value)
+        f.append(f_value)
+    
+    data.append(s)
+    data.append(f)
+    
+    if not check_data(data):
+        print("Некоректні дані.")
+        return []
+    
+    return data
 
 def input_m():
     while True:
