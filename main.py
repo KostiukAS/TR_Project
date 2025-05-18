@@ -3,6 +3,7 @@ import data_helper, experiment_helper
 
 data = []
 results = []
+m = None
 
 def main():
     while True:
@@ -20,6 +21,10 @@ def main():
             data_output()
         elif choice == '5':
             results_output()
+        elif choice == '6':
+            load_to_file()
+        elif choice == '7':
+            clear_data()
         elif choice == '0':
             print("Вихід з програми.")
             break
@@ -39,6 +44,8 @@ def menu():
     print("3 - Провести експерименти")
     print("4 - Вивести дані задачі")
     print("5 - Вивести результати")
+    print("6 - Завантажити у файл")
+    print("7 - Очистити дані")
     print("0 - Вихід")
     print("---------------")
 
@@ -49,7 +56,7 @@ def data_status():
         print("Дані завантажені.")
 
 def data_input():
-    global data
+    global data, m
     
     while True:
         print("\nВведення даних задачі:")
@@ -57,7 +64,9 @@ def data_input():
         print("1 - З файлу")
         print("2 - Ввести вручну")
         print("3 - Згенерувати випадкові дані")
+        print("Інші дії:")
         print("4 - Модифікувати дані")
+        print("5 - Ввести кількість прогонів m")
         print("0 - Назад")
         
         choice = input("Введіть число: ")
@@ -89,6 +98,9 @@ def data_input():
             else:
                 data = data_helper.modify_data(data)
             break
+        elif choice == '5':
+            m = data_helper.input_m()
+            break
         elif choice == '0':
             print("Повернення в головне меню.")
             break
@@ -96,7 +108,7 @@ def data_input():
             print("\nНекоректний ввід. Спробуйте ще раз.\n")
 
 def solver():
-    global data, results
+    global data, results, m
     
     if data == []:
         print("Дані не завантажені. Спочатку завантажте дані.")
@@ -107,7 +119,7 @@ def solver():
     print("Розв'язання задачі усіма алгоритмами:")
     
     results.append(greedy.greedy_algorithm(data))
-    results.append(prob_rules.prob_rules_algorithm(data))
+    results.append(prob_rules.prob_rules_algorithm(data, m=m))
     results.append(weight_rules.weight_rules_algorithm(data))
     
     print("Розв'язання завершено. Результати:")
@@ -145,7 +157,7 @@ def experiment():
             print("\nНекоректний ввід. Спробуйте ще раз.\n")
 
 def data_output():
-    global data
+    global data, m
     
     if data == []:
         print("Дані не завантажені.")
@@ -155,6 +167,8 @@ def data_output():
         print("Початковий момент часу:", data[1])
         print("Години початку зустрічей з клієнтами:", data[2])
         print("Години закінчення зустрічей з клієнтами:", data[3])
+        if m is not None:
+            print("Кількість прогонів m:", m)
 
 def results_output():
     global results
@@ -168,6 +182,51 @@ def results_output():
             print("Порядок клієнтів:", result[1])
             print("Фактичні години початку зустрічей:", result[2])
             print("Значення ЦФ:", result[3])
+
+def load_to_file():
+    global data, results
+    
+    while True:
+        print("\nЗавантаження даних у файл:")
+        print("Виберіть тип даних для збереження:")
+        print("1 - Дані задачі")
+        print("2 - Результати")
+        print("0 - Назад")
+        
+        choice = input("Введіть число: ")
+        
+        if choice == '1':
+            if data == []:
+                print("Даних немає.")
+            else:
+                file_name = input("Введіть назву файлу для збереження: ")
+                data_helper.save_data_to_file(data, file_name)
+            break
+        elif choice == '2':
+            if results == []:
+                print("Результатів немає.")
+            else:
+                file_name = input("Введіть назву файлу для збереження: ")
+                data_helper.save_results_to_file(results, file_name)
+            break
+        elif choice == '0':
+            print("Повернення в головне меню.")
+            break
+        else:
+            print("\nНекоректний ввід. Спробуйте ще раз.\n")
+
+def clear_data():
+    global data, results, m
+    
+    check = input("Ви впевнені, що хочете очистити дані? (y/n): ")
+    
+    if check.lower() == 'y':
+        data = []
+        results = []
+        m = None
+        print("Дані очищені.")
+    else:
+        print("Дані не очищені.")
 
 if __name__ == "__main__":
     main()
