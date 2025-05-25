@@ -118,9 +118,9 @@ def solver():
     
     print("Розв'язання задачі усіма алгоритмами:")
     
-    results.append(greedy.greedy_algorithm(data))
-    results.append(prob_rules.prob_rules_algorithm(data, m=m))
-    results.append(weight_rules.weight_rules_algorithm(data))
+    results.append(["Жадібний алгоритм"] + greedy.greedy_algorithm(data))
+    results.append(["Алгоритм ймовірнісних правил"] + prob_rules.prob_rules_algorithm(data, m=m))
+    results.append(["Алгоритм зважених правил"] + weight_rules.weight_rules_algorithm(data))
     
     print("Розв'язання завершено. Результати:")
     

@@ -29,4 +29,4 @@ def greedy_algorithm(data):
     for i in range(len(order)):
         y += abs(x[i] - data[2][order[i]])
     
-    return ["Жадібний алгоритм", order, x, y]
+    return [order, x, y]
