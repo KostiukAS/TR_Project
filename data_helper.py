@@ -276,6 +276,9 @@ def generate_random_data(n=None, t=None, avg_length=None, max_diff=None):
         avg_length = random.randint(3, 20)
     if max_diff is None:
         max_diff = random.randint(1, 5)
+        
+    if max_diff >= avg_length:
+        max_diff = avg_length - 1
     
     data.append(n)
     data.append(t)
