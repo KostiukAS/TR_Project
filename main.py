@@ -127,6 +127,8 @@ def solver():
     results_output()
 
 def experiment():
+    global data
+    
     while True:
         print("\nПроведення експериментів:")
         print("Виберіть тип експерименту:")
@@ -148,7 +150,7 @@ def experiment():
             experiment_helper.experiment_duration_on_accuracy()
             break
         elif choice == '4':
-            experiment_helper.experiment_m_on_accuracy()
+            experiment_helper.experiment_m_on_accuracy(data)
             break
         elif choice == '0':
             print("Повернення в головне меню.")

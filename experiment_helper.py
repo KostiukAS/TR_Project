@@ -146,6 +146,6 @@ def experiment_duration_on_accuracy():
         plt.show()
         break
 
-def experiment_m_on_accuracy():
+def experiment_m_on_accuracy(data):
     # TODO: Реалізувати експеримент для впливу кількості прогонів m на точність алгоритму імовірнісних правил
     pass
